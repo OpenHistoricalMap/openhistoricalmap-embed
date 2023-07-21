@@ -1,4 +1,4 @@
-# ohm-embed-1yr
+# Embeddable Single-Year OpenHistoricalMap
 Single year embed version of OHM default map style
 
 This is a simple embeddable version of the OpenHistoricalMap default map style, with teh ability to select and display a single year via URL parameter.
