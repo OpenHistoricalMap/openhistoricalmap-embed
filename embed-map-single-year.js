@@ -28,6 +28,14 @@ addEventListener('load', function () {
     customAttribution: attribution,
   }));
   
+  var markerLongitude = parseFloat(params.get('mlon'));
+  var markerLatitude = parseFloat(params.get('mlat'));
+  if (markerLongitude && markerLatitude) {
+    new maplibregl.Marker()
+      .setLngLat([markerLongitude, markerLatitude])
+      .addTo(map);
+  }
+  
   map.once('styledata', function (event) {
     filterByDate(map, params.get('date'));
   });
