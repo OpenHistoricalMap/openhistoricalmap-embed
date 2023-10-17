@@ -9,14 +9,15 @@ var stylesByLayer = {
 };
 
 addEventListener('load', function () {
-  var params = new URLSearchParams(location.hash.substring(1));
-  var style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O;
-
-  upgradeLegacyHash();
+  let
+    bbox = JSON.parse(`[${new URLSearchParams(location.search).get('bbox')}]`),
+    params = new URLSearchParams(location.hash.substring(1)),
+    style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O
+  ;
 
   window.map = new maplibregl.Map({
     container: 'map',
-    hash: 'map',
+    hash: true,
     style: style,
     attributionControl: false,
     customAttribution: attribution,
@@ -28,8 +29,13 @@ addEventListener('load', function () {
     customAttribution: attribution,
   }));
 
-  var markerLongitude = parseFloat(params.get('mlon'));
-  var markerLatitude = parseFloat(params.get('mlat'));
+  let bounds = new maplibregl.LngLatBounds(bbox);
+  map.fitBounds(bounds, {duration:0});
+
+  let
+    markerLongitude = parseFloat(params.get('mlon')),
+    markerLatitude = parseFloat(params.get('mlat'))
+  ;
   if (markerLongitude && markerLatitude) {
     new maplibregl.Marker()
       .setLngLat([markerLongitude, markerLatitude])
