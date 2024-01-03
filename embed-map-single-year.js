@@ -10,14 +10,13 @@ var stylesByLayer = {
 
 addEventListener('load', function () {
   let
-    bbox = JSON.parse(`[${new URLSearchParams(location.search).get('bbox')}]`),
     params = new URLSearchParams(location.hash.substring(1)),
     style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O
   ;
 
   window.map = new maplibregl.Map({
     container: 'map',
-    hash: true,
+    hash: 'map',
     style: style,
     attributionControl: false,
     customAttribution: attribution,
@@ -29,13 +28,20 @@ addEventListener('load', function () {
     customAttribution: attribution,
   }));
 
-  let bounds = new maplibregl.LngLatBounds(bbox);
-  map.fitBounds(bounds, {duration:0});
-
   let
     markerLongitude = parseFloat(params.get('mlon')),
-    markerLatitude = parseFloat(params.get('mlat'))
+    markerLatitude = parseFloat(params.get('mlat')),
+    bbox = params.get('bbox')
   ;
+
+  // A bbox is provided in the Share=>HTML generated in ohm-website's side panel. It is used
+  // for the initial bounding of an embedded map so that the view will be roughly equivalent,
+  // and then the standard hash mechanism takes over.
+  if (bbox && bbox.split(',').length === 4) {
+    let bounds = new maplibregl.LngLatBounds(bbox.split(','));
+    map.fitBounds(bounds, {duration:0});
+  }
+
   if (markerLongitude && markerLatitude) {
     new maplibregl.Marker()
       .setLngLat([markerLongitude, markerLatitude])

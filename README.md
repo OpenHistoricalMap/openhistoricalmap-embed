@@ -9,17 +9,11 @@ The base URL of the embed is https://embed.openhistoricalmap.org/
 
 ## URL parameters
 
-### As ?bbox=minlon,minlat,maxlon,maxlat
-
-An embedded map is typically of a different size than the original and thus must be scaled in order to cover a comparable area. Passing the original map's bounding box as a query string is not only supported but recommended.
-
-### As #map=z/x/y
-
-The URL can have typical z/x/y parameters for map zoom and center. 
+The URL has typical z/x/y parameters for map zoom and center.
 
 So a parameter like `#map=10/43.9367/12.5528` is zoom 10 showing San Marino in Italy, which is at `43.9367/12.5528` in `lon,lat` format of decimal degrees. [See the map.](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528)
 
-`#map` is silently ignored if `?bbox` is present in the URL.
+An embedded map is typically of a different size and aspect ratio from the original and thus must be scaled in order to cover a comparable area. This is accomplished by passing the original map's bounding box in the hash as `&bbox=minlon,minlat,maxlon,maxlat`. Once the embedded map gets its initial framing from the `bbox` the normal hash mechanism takes over. The San Marino example could be bounded by appending `&bbox=12.321338653564453,43.86782687726672,12.58037567138672,44.008373185063874` to the URL. [See this map.](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&bbox=12.321338653564453,43.86782687726672,12.58037567138672,44.008373185063874)
 
 ### Dates
 
@@ -38,3 +32,7 @@ Simply use code like this to embed:
 ```
 
 Here's an [example iFrame](https://embed.openhistoricalmap.org/iframe-example.html).
+
+## For development
+
+Start a webserver in this directory, e.g., `http-server`. Use the resulting base url, e.g., `http://localhost:8082/` as `ohm-website`'s [`embed_server_url` in `config/settings.local.yml`](https://github.com/OpenHistoricalMap/ohm-website/blob/staging/config/settings.yml).
