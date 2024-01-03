@@ -9,11 +9,11 @@ var stylesByLayer = {
 };
 
 addEventListener('load', function () {
-  var params = new URLSearchParams(location.hash.substr(1));
-  var style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O;
-  
-  upgradeLegacyHash();
-  
+  let
+    params = new URLSearchParams(location.hash.substring(1)),
+    style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O
+  ;
+
   window.map = new maplibregl.Map({
     container: 'map',
     hash: 'map',
@@ -21,29 +21,41 @@ addEventListener('load', function () {
     attributionControl: false,
     customAttribution: attribution,
   });
-  
+
   map.addControl(new maplibregl.NavigationControl(), 'top-left');
   map.addControl(new maplibregl.FullscreenControl(), 'top-left');
   map.addControl(new maplibregl.AttributionControl({
     customAttribution: attribution,
   }));
-  
-  var markerLongitude = parseFloat(params.get('mlon'));
-  var markerLatitude = parseFloat(params.get('mlat'));
+
+  let
+    markerLongitude = parseFloat(params.get('mlon')),
+    markerLatitude = parseFloat(params.get('mlat')),
+    bbox = params.get('bbox')
+  ;
+
+  // A bbox is provided in the Share=>HTML generated in ohm-website's side panel. It is used
+  // for the initial bounding of an embedded map so that the view will be roughly equivalent,
+  // and then the standard hash mechanism takes over.
+  if (bbox && bbox.split(',').length === 4) {
+    let bounds = new maplibregl.LngLatBounds(bbox.split(','));
+    map.fitBounds(bounds, {duration:0});
+  }
+
   if (markerLongitude && markerLatitude) {
     new maplibregl.Marker()
       .setLngLat([markerLongitude, markerLatitude])
       .addTo(map);
   }
-  
+
   map.once('styledata', function (event) {
     filterByDate(map, params.get('date'));
   });
-  
+
   addEventListener('hashchange', function (event) {
     upgradeLegacyHash();
-    var oldParams = new URLSearchParams(new URL(event.oldURL).hash.substr(1));
-    var newParams = new URLSearchParams(new URL(event.newURL).hash.substr(1));
+    var oldParams = new URLSearchParams(new URL(event.oldURL).hash.substring(1));
+    var newParams = new URLSearchParams(new URL(event.newURL).hash.substring(1));
     var oldDate = oldParams.get('date');
     var newDate = newParams.get('date');
     if (oldDate !== newDate) {
@@ -53,7 +65,7 @@ addEventListener('load', function () {
 });
 
 function upgradeLegacyHash() {
-  var hash = location.hash.substr(1);
+  var hash = location.hash.substring(1);
   if (!hash.includes('=')) {
     hash = '#map=' + hash;
   }
@@ -62,7 +74,7 @@ function upgradeLegacyHash() {
 
 /**
  * Filters the map’s features by the `date` data attribute.
- * 
+ *
  * @param map The MapboxGL map object to filter the style of.
  * @param date The date to filter by in YYYY-MM-DD format.
  */
@@ -72,10 +84,10 @@ function filterByDate(map, date) {
   }
   var decimalYear = date && decimalYearFromISODate(date);
   if (!decimalYear) return;
-  
+
   map.getStyle().layers.map(function (layer) {
     if (!('source-layer' in layer)) return;
-    
+
     var filter = constrainFilterByDate(layer.filter, decimalYear);
     map.setFilter(layer.id, filter);
   });
@@ -83,7 +95,7 @@ function filterByDate(map, date) {
 
 /**
  * Converts the given ISO 8601-1 date to a decimal year.
- * 
+ *
  * @param isoDate A date string in ISO 8601-1 format.
  * @returns A floating point number of years since year 0.
  */
@@ -91,7 +103,7 @@ function decimalYearFromISODate(isoDate) {
   // Require a valid YYYY, YYYY-MM, or YYYY-MM-DD date, but allow the year
   // to be a variable number of digits or negative, unlike ISO 8601-1.
   if (!isoDate || !/^-?\d{1,4}(?:-\d\d){0,2}$/.test(isoDate)) return;
-  
+
   var ymd = isoDate.split('-');
   // A negative year results in an extra element at the beginning.
   if (ymd[0] === '') {
@@ -101,7 +113,7 @@ function decimalYearFromISODate(isoDate) {
   var year = +ymd[0];
   var date = dateFromUTC(year, +ymd[1] - 1, +ymd[2]);
   if (isNaN(date)) return;
-  
+
   // Add the year and the fraction of the date between two New Year’s Days.
   var nextNewYear = dateFromUTC(year + 1, 0, 1).getTime();
   var lastNewYear = dateFromUTC(year, 0, 1).getTime();
@@ -110,7 +122,7 @@ function decimalYearFromISODate(isoDate) {
 
 /**
  * Returns a `Date` object representing the given UTC date components.
- * 
+ *
  * @param year A one-based year in the proleptic Gregorian calendar.
  * @param month A zero-based month.
  * @param day A one-based day.
@@ -126,7 +138,7 @@ function dateFromUTC(year, month, day) {
 /**
  * Returns a modified version of the given filter that only evaluates to
  * true if the feature coincides with the given decimal year.
- * 
+ *
  * @param filter The original layer filter.
  * @param decimalYear The decimal year to filter by.
  * @returns A filter similar to the given filter, but with added conditions
@@ -143,7 +155,7 @@ function constrainFilterByDate(filter, decimalYear) {
     }
     return filter;
   }
-  
+
   var dateFilter = [
     'all',
     ['any', ['!has', 'start_decdate'], ['<=', 'start_decdate', decimalYear]],
