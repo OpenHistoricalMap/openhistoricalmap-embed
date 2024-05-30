@@ -1,7 +1,7 @@
-# Embeddable Single-Year OpenHistoricalMap
-Single year embed version of OHM default map style
+# Embeddable OpenHistoricalMap
+Embed version of OHM default map style
 
-This is a simple embeddable version of the OpenHistoricalMap default map style, with the ability to select and display a single year via URL parameter.
+This is a simple embeddable version of the OpenHistoricalMap default map style, with the ability to select and display a single year via URL parameter or animate across a timespan. The map responds to gestures interactively, but the dates can only be adjusted via the URL.
 
 The use case for this would be, for example, to embed map showing a specific place and time in a blog post about that place and time. The map is zoomable and pannable, but doesn't allow changing the year within the interface, such as is possible with the timeslider on openhistoricalmap.org.
 
@@ -23,6 +23,13 @@ OHM-specific parameters:
 
 * `date` is a valid YYYY, YYYY-MM, or YYYY-MM-DD date, but we allow the year to be a variable number of digits or negative, unlike ISO 8601-1. So here is San Marino in the year 1500 `#map=10/43.9367/12.5528&date=1500`. [See this map.](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&date=1500)
 * `layer` is one of `O`, `W`, or `J`. This allows the selection of alternative OHM-compatible styles currently offered on openhistoricalmap.org. The default OHM style is `O`. The Japanese Scroll style is `J`. The Woodblock style is `W`. Here is a query string for San Marino in 1500 in the Woodblock style: `#map=10/43.9367/12.5528&date=1500&layer=W`. [See this map](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&date=1500&layer=W)
+
+The map can optionally animate if you specify the following parameters:
+
+* `start_date` is the initial value of `date` at the beginning of the animation. If you also specify `date`, the `start_date` is ignored in favor of `date`.
+* `end_date` is the final value of `date` at the end of the animation.
+* `interval` is the difference in the dates depicted by any two consecutive frames of the animation, expressed as an ISO&nbsp;8601-1 duration. For example, `P10Y6M1D` advances each frame by 10&nbsp;years, 6&nbsp;months, and 1&nbsp;day, while `-P10Y6M1D` turns back the clock by 10&nbsp;years, 6&nbsp;months, and 1&nbsp;day on each frame. This parameter only supports years, months, and/or days. By default, the animation advances by one year at a time.
+* `framerate` is the frequency of the animation measured in hertz, defaulting to `1` (1 hertz, or 1 frame per second).
 
 ## Embedding
 
