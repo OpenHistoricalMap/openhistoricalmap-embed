@@ -1,7 +1,7 @@
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
   /* Historic */
-  O: 'https://openhistoricalmap.github.io/map-styles/ohm_timeslider_tegola/tegola-ohm.json',
+  O: 'https://openhistoricalmap.github.io/map-styles/main/main.json',
   /* Japanese Scroll */
   J: 'https://openhistoricalmap.github.io/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
   /* Woodblock */
