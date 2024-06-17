@@ -2,6 +2,8 @@ var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHis
 var stylesByLayer = {
   /* Historic */
   O: 'https://openhistoricalmap.github.io/map-styles/main/main.json',
+  /* Railway */
+  R: 'https://openhistoricalmap.github.io/map-styles/rail/rail.json',
   /* Japanese Scroll */
   J: 'https://openhistoricalmap.github.io/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
   /* Woodblock */

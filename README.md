@@ -22,7 +22,14 @@ Without a date parameter, the map shows everything in the OHM tiles for which th
 OHM-specific parameters:
 
 * `date` is a valid YYYY, YYYY-MM, or YYYY-MM-DD date, but we allow the year to be a variable number of digits or negative, unlike ISO 8601-1. So here is San Marino in the year 1500 `#map=10/43.9367/12.5528&date=1500`. [See this map.](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&date=1500)
-* `layer` is one of `O`, `W`, or `J`. This allows the selection of alternative OHM-compatible styles currently offered on openhistoricalmap.org. The default OHM style is `O`. The Japanese Scroll style is `J`. The Woodblock style is `W`. Here is a query string for San Marino in 1500 in the Woodblock style: `#map=10/43.9367/12.5528&date=1500&layer=W`. [See this map](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&date=1500&layer=W)
+* `layer` selects one of the OHM-compatible styles currently offered on openhistoricalmap.org:
+
+Map layer | `layer` | Example
+----|:--:|----
+Historical | `O` | [New York in 1700](https://embed.openhistoricalmap.org/#map=18/40.70486/-74.01313&date=1700&layer=O)
+Railway | `R` | [Sydney in 1924](https://embed.openhistoricalmap.org/#map=14/-33.8677/151.2105&date=1924&layer=R)
+Woodblock | `W` | [San Marino in 1500](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&date=1500&layer=W)
+Japanese Scroll | `J` | [Osaka in 1970](https://embed.openhistoricalmap.org/#map=13/34.6914/135.5011&date=1970&layer=J)
 
 ## Embedding
 
