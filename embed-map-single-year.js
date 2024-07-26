@@ -1,13 +1,21 @@
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
-  /* Historic */
+  /* Historic (production) */
   O: 'https://www.openhistoricalmap.org/map-styles/main/main.json',
-  /* Railway */
+  /* Historic (staging) */
+  O_staging: 'https://openhistoricalmap.github.io/map-styles/main/main.json',
+  /* Railway (production) */
   R: 'https://www.openhistoricalmap.org/map-styles/rail/rail.json',
-  /* Japanese Scroll */
+  /* Railway (staging) */
+  R_staging: 'https://openhistoricalmap.github.io/map-styles/rail/rail.json',
+  /* Japanese Scroll (production) */
   J: 'https://www.openhistoricalmap.org/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
-  /* Woodblock */
+  /* Japanese Scroll (staging) */
+  J_staging: 'https://openhistoricalmap.github.io/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
+  /* Woodblock (production) */
   W: 'https://www.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
+  /* Woodblock (staging) */
+  W_staging: 'https://openhistoricalmap.github.io/map-styles/woodblock/woodblock.json',
 };
 
 addEventListener('load', function () {
