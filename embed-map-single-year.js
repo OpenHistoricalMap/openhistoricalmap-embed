@@ -15,7 +15,7 @@ var stylesByLayer = {
   /* Woodblock (production) */
   W: 'https://www.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
   /* Woodblock (staging) */
-  W_staging: 'https://openhistoricalmap.github.io/map-styles/woodblock/woodblock.json,
+  W_staging: 'https://openhistoricalmap.github.io/map-styles/woodblock/woodblock.json',
 };
 
 addEventListener('load', function () {
