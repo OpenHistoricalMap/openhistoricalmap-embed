@@ -47,6 +47,6 @@ Simply use code like this to embed:
 
 Here's an [example iFrame](https://embed.openhistoricalmap.org/iframe-example.html).
 
-## For development
+## Feedback
 
-Start a webserver in this directory, e.g., `http-server`. Use the resulting base url, e.g., `http://localhost:8082/` as `ohm-website`'s [`embed_server_url` in `config/settings.local.yml`](https://github.com/OpenHistoricalMap/ohm-website/blob/staging/config/settings.yml).
+Please submit bug reports and feature requests to [OpenHistoricalMap’s central issue tracker](https://github.com/OpenHistoricalMap/issues/issues/), noting “OpenHistoricalMap embed” somewhere in the title or description. 
