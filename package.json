@@ -4,7 +4,7 @@
   "description": "Embeddable map of OpenHistoricalMap",
   "main": "index.js",
   "scripts": {
-    "build": "shx mkdir -p dist && cp index.html index.css dist && esbuild index.js --bundle --outdir=dist"
+    "build": "shx mkdir -p dist && cp index.html dist && esbuild index.js --bundle --outdir=dist"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "devDependencies": {
     "esbuild": "^0.23.0",
     "shx": "^0.3.4"
+  },
+  "dependencies": {
+    "maplibre-gl": "^4.5.1"
   }
 }
