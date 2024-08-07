@@ -1,0 +1,27 @@
+{
+  "name": "@openhistoricalmap/embed",
+  "version": "1.0.0",
+  "description": "Embeddable map of OpenHistoricalMap",
+  "main": "index.js",
+  "scripts": {
+    "build": "shx mkdir -p dist && cp index.html index.css dist && esbuild index.js --bundle --outdir=dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenHistoricalMap/ohm-embed-1yr.git"
+  },
+  "keywords": [
+    "openhistoricalmap",
+    "embed"
+  ],
+  "author": "OpenHistoricalMap",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/OpenHistoricalMap/ohm-embed-1yr/issues"
+  },
+  "homepage": "https://github.com/OpenHistoricalMap/ohm-embed-1yr#readme",
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "shx": "^0.3.4"
+  }
+}
