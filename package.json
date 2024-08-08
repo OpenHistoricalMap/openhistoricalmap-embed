@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenHistoricalMap/ohm-embed-1yr.git"
+    "url": "git+https://github.com/OpenHistoricalMap/openhistoricalmap-embed.git"
   },
   "keywords": [
     "openhistoricalmap",
@@ -18,9 +18,9 @@
   "author": "OpenHistoricalMap",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/OpenHistoricalMap/ohm-embed-1yr/issues"
+    "url": "https://github.com/OpenHistoricalMap/openhistoricalmap-embed/issues"
   },
-  "homepage": "https://github.com/OpenHistoricalMap/ohm-embed-1yr#readme",
+  "homepage": "https://github.com/OpenHistoricalMap/openhistoricalmap-embed#readme",
   "devDependencies": {
     "esbuild": "^0.23.0",
     "shx": "^0.3.4"
