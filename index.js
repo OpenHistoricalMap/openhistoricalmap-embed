@@ -23,6 +23,9 @@ var stylesByLayer = {
 };
 
 addEventListener('load', function () {
+  // Avoid lazy-loading RTL support because it maplibre-gl-leaflet doesn’t refresh the tiles when it first loads.
+  maplibregl.setRTLTextPlugin('mapbox-gl-rtl-text.js', false);
+
   let
     params = new URLSearchParams(location.hash.substring(1)),
     style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O
