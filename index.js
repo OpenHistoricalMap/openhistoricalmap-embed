@@ -1,3 +1,7 @@
+import { filterByDate, dateRangeFromISODate } from '@openhistoricalmap/maplibre-gl-dates';
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
   /* Historic (production) */
@@ -64,11 +68,8 @@ addEventListener('load', function () {
       return;
     }
     
-    let isoDate = params.get('date');
-    let date = dateFromISODate(isoDate || new Date());
-    if (date) {
-      filterByDate(map, date);
-    }
+    let date = params.get('date') || new Date();
+    filterByDate(map, date);
   });
 
   addEventListener('hashchange', function (event) {
@@ -83,13 +84,10 @@ addEventListener('load', function () {
       return;
     }
     
-    var oldISODate = oldParams.get('date');
-    var newISODate = newParams.get('date');
-    if (oldISODate !== newISODate) {
-      let newDate = dateFromISODate(newISODate || new Date());
-      if (newDate) {
-        filterByDate(map, newDate);
-      }
+    var oldDate = oldParams.get('date');
+    var newDate = newParams.get('date');
+    if (oldDate !== newDate) {
+      filterByDate(map, newDate || new Date());
     }
   });
 });
@@ -125,7 +123,8 @@ function animate(map, startDate, endDate) {
     let hash = location.hash.substring(1);
     let params = new URLSearchParams(location.hash.substring(1));
     let isoDate = params.get('date') || startDate;
-    let oldDate = dateFromISODate(isoDate);
+    let oldDateRange = dateRangeFromISODate(isoDate);
+    let oldDate = oldDateRange && oldDateRange.startDate;
     if (oldDate) {
       let newDate = dateAfterDuration(oldDate, duration);
       if (newDate <= new Date()) {
@@ -137,58 +136,6 @@ function animate(map, startDate, endDate) {
       }
     }
   }, 1000 / (isNaN(framerate) ? 1 : framerate));
-}
-
-/**
- * Filters the map’s features by a date.
- *
- * @param map The MapboxGL map object to filter the style of.
- * @param date The date to filter by.
- */
-function filterByDate(map, date) {
-  var decimalYear = decimalYearFromDate(date);
-  map.getStyle().layers.map(function (layer) {
-    if (!('source-layer' in layer)) return;
-
-    var filter = constrainFilterByDate(map.getFilter(layer.id), decimalYear);
-    map.setFilter(layer.id, filter);
-  });
-}
-
-/**
- * Converts the given date to a decimal year.
- *
- * @param date A date object.
- * @returns A floating point number of years since year 0.
- */
-function decimalYearFromDate(date) {
-  // Add the year and the fraction of the date between two New Year’s Days.
-  let year = date.getUTCFullYear();
-  var nextNewYear = dateFromUTC(year + 1, 0, 1).getTime();
-  var lastNewYear = dateFromUTC(year, 0, 1).getTime();
-  return year + (date.getTime() - lastNewYear) / (nextNewYear - lastNewYear);
-}
-
-/**
- * Converts the given ISO 8601-1 date to a `Date` object.
- *
- * @param isoDate A date string in ISO 8601-1 format.
- * @returns A date object.
- */
-function dateFromISODate(isoDate) {
-  // Require a valid YYYY, YYYY-MM, or YYYY-MM-DD date, but allow the year
-  // to be a variable number of digits or negative, unlike ISO 8601-1.
-  if (!isoDate || !/^-?\d{1,4}(?:-\d\d){0,2}$/.test(isoDate)) return;
-
-  var ymd = isoDate.split('-');
-  // A negative year results in an extra element at the beginning.
-  if (ymd[0] === '') {
-    ymd.shift();
-    ymd[0] *= -1;
-  }
-  var year = +ymd[0];
-  var date = dateFromUTC(year, +ymd[1] - 1, +ymd[2]);
-  return !isNaN(date) && date;
 }
 
 /**
@@ -227,51 +174,4 @@ function dateAfterDuration(date, duration) {
   newDate.setUTCMonth(newDate.getUTCMonth() + duration.months);
   newDate.setUTCDate(newDate.getUTCDate() + duration.days);
   return newDate;
-}
-
-/**
- * Returns a `Date` object representing the given UTC date components.
- *
- * @param year A one-based year in the proleptic Gregorian calendar.
- * @param month A zero-based month.
- * @param day A one-based day.
- * @returns A date object.
- */
-function dateFromUTC(year, month, day) {
-  var date = new Date(Date.UTC(year, month, day));
-  // Date.UTC() treats a two-digit year as an offset from 1900.
-  date.setUTCFullYear(year);
-  return date;
-}
-
-/**
- * Returns a modified version of the given filter that only evaluates to
- * true if the feature coincides with the given decimal year.
- *
- * @param filter The original layer filter.
- * @param decimalYear The decimal year to filter by.
- * @returns A filter similar to the given filter, but with added conditions
- *	that require the feature to coincide with the decimal year.
- */
-function constrainFilterByDate(filter, decimalYear) {
-  if (filter && filter[0] === 'all' &&
-      filter[1] && filter[1][0] === 'any') {
-    if (filter[1][2] && filter[1][2][0] === '<=' && filter[1][2][1] === 'start_decdate') {
-      filter[1][2][2] = decimalYear;
-    }
-    if (filter[2][2] && filter[2][2][0] === '>=' && filter[2][2][1] === 'end_decdate') {
-      filter[2][2][2] = decimalYear;
-    }
-    return filter;
-  }
-
-  var dateFilter = [
-    'all',
-    ['any', ['!has', 'start_decdate'], ['<=', 'start_decdate', decimalYear]],
-    ['any', ['!has', 'end_decdate'], ['>=', 'end_decdate', decimalYear]],
-  ];
-  if (filter) {
-    dateFilter.push(filter);
-  }
-  return dateFilter;
 }

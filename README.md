@@ -1,11 +1,8 @@
 # Embeddable OpenHistoricalMap
-Embed version of OHM default map style
 
-This is a simple embeddable version of the OpenHistoricalMap default map style, with the ability to select and display a single year via URL parameter or animate across a timespan. The map responds to gestures interactively, but the dates can only be adjusted via the URL.
+This is a simple world historical map based on [OpenHistoricalMap](https://www.openhistoricalmap.org/) data that is suitable for embedding inside a third-party webpage. Using URL parameters, you can choose a location, time period, and cartographic style. To show a place’s evolution, you can also animate smoothly between two arbitrary dates. The map responds to gestures interactively, but the dates can only be adjusted via the URL.
 
-The use case for this would be, for example, to embed map showing a specific place and time in a blog post about that place and time. The map is zoomable and pannable, but doesn't allow changing the year within the interface, such as is possible with the timeslider on openhistoricalmap.org.
-
-The base URL of the embed is https://embed.openhistoricalmap.org/
+Visit the map directly at [embed.openhistoricalmap.org](https://embed.openhistoricalmap.org/). Or export a code snippet for your webpage by opening the Share panel on the right side of [OHM’s homepage](https://www.openhistoricalmap.org/) and changing the format to “HTML”.
 
 ## URL parameters
 
@@ -47,6 +44,6 @@ Simply use code like this to embed:
 
 Here's an [example iFrame](https://embed.openhistoricalmap.org/iframe-example.html).
 
-## For development
+## Feedback
 
-Start a webserver in this directory, e.g., `http-server`. Use the resulting base url, e.g., `http://localhost:8082/` as `ohm-website`'s [`embed_server_url` in `config/settings.local.yml`](https://github.com/OpenHistoricalMap/ohm-website/blob/staging/config/settings.yml).
+Please submit bug reports and feature requests to [OpenHistoricalMap’s central issue tracker](https://github.com/OpenHistoricalMap/issues/issues/), noting “OpenHistoricalMap embed” somewhere in the title or description. 
