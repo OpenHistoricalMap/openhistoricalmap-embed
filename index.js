@@ -32,15 +32,13 @@ addEventListener('load', function () {
     container: 'map',
     hash: 'map',
     style: style,
-    attributionControl: false,
-    customAttribution: attribution,
+    attributionControl: {
+      customAttribution: attribution,
+    },
   });
 
   map.addControl(new maplibregl.NavigationControl(), 'top-left');
   map.addControl(new maplibregl.FullscreenControl(), 'top-left');
-  map.addControl(new maplibregl.AttributionControl({
-    customAttribution: attribution,
-  }));
 
   let
     markerLongitude = parseFloat(params.get('mlon')),
