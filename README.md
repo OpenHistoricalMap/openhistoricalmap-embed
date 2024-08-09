@@ -37,7 +37,7 @@ The map can optionally animate if you specify the following parameters:
 
 ### Language
 
-By default, map labels appear in your preferred language according to [your browser preferences](https://www.w3.org/International/questions/qa-lang-priorities#changing). You can also override this preference by setting the `language` parameter to an ISO&nbsp;639 language code. For example, add `&language=cop&date=700` to see [Roman Egypt labeled in Copt](https://embed.openhistoricalmap.org/#map=7/30.423/30.636&layer=O&language=cop&date=700). If OHM doesn’t have the name of a place in this preferred language, the label appears in the contemporary local language as a last resort.
+By default, map labels appear in your preferred language according to [your browser preferences](https://www.w3.org/International/questions/qa-lang-priorities#changing). You can also override this preference by setting the `language` parameter to an ISO&nbsp;639 language code. For example, add `&language=cop&date=700` to see [Roman Egypt labeled in Copt](https://embed.openhistoricalmap.org/#map=7/30.423/30.636&layer=O&language=cop&date=700). If OHM doesn’t have the name of a place in this preferred language, the label appears in the contemporary local language as a last resort. To force the display of names in contemporary local languages, set the `language` parameter to `mul` (the ISO&nbsp;639 code for multilingual content).
 
 ## Embedding
 
