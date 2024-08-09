@@ -47,7 +47,7 @@ addEventListener('load', function () {
   let languageCode = params.get('language');
   let language = new MapboxLanguage({
     defaultLanguage: languageCode,
-    supportedLanguages: languageCode,
+    supportedLanguages: languageCode ? [languageCode] : undefined,
     languageSource: 'osm',
     getLanguageField: (languageCode) => {
       if (languageCode === 'mul') {
