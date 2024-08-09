@@ -42,7 +42,7 @@ Simply use code like this to embed:
     <iframe src="https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&date=1500&layer=O" height="500" width="100%" title="OpenHistoricalMap: San Marino in 1500"></iframe> 
 ```
 
-Here's an [example iFrame](https://embed.openhistoricalmap.org/iframe-example.html).
+Here's an [example iframe](https://embed.openhistoricalmap.org/iframe-example.html).
 
 ## Feedback
 
