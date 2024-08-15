@@ -1,6 +1,7 @@
 import { filterByDate, dateRangeFromISODate } from '@openhistoricalmap/maplibre-gl-dates';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import MapboxLanguage from '@mapbox/mapbox-gl-language';
 
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
@@ -23,6 +24,9 @@ var stylesByLayer = {
 };
 
 addEventListener('load', function () {
+  // Avoid lazy-loading RTL support because it maplibre-gl-leaflet doesn’t refresh the tiles when it first loads.
+  maplibregl.setRTLTextPlugin('mapbox-gl-rtl-text.js', false);
+
   let
     params = new URLSearchParams(location.hash.substring(1)),
     style = stylesByLayer[params.get('layer') || ''] || stylesByLayer.O
@@ -39,6 +43,23 @@ addEventListener('load', function () {
 
   map.addControl(new maplibregl.NavigationControl(), 'top-left');
   map.addControl(new maplibregl.FullscreenControl(), 'top-left');
+
+  let languageCode = params.get('language');
+  let language = new MapboxLanguage({
+    defaultLanguage: languageCode,
+    supportedLanguages: languageCode ? [languageCode] : undefined,
+    languageSource: 'osm',
+    getLanguageField: (languageCode) => {
+      if (languageCode === 'mul') {
+        return 'name';
+      } else {
+        // Optimistically follow the pattern in the tiler tag mapping without hard-coding the specific table columns.
+        // https://github.com/OpenHistoricalMap/ohm-deploy/blob/main/images/tiler-server/config/languages.sql
+        return 'name_' + languageCode.replace('-', '_').toLowerCase();
+      }
+    },
+  });
+  map.addControl(language);
 
   let
     markerLongitude = parseFloat(params.get('mlon')),
@@ -74,6 +95,19 @@ addEventListener('load', function () {
     upgradeLegacyHash();
     var oldParams = new URLSearchParams(new URL(event.oldURL).hash.substring(1));
     var newParams = new URLSearchParams(new URL(event.newURL).hash.substring(1));
+
+    let oldLanguageCode = oldParams.get('language');
+    let newLanguageCode = newParams.get('language');
+    if (oldLanguageCode !== newLanguageCode) {
+      if (!language.supportedLanguages.includes(newLanguageCode)) {
+        // mapbox-gl-language assumes a limited set of language fields that is known in advance, as is the case with the Mapbox Streets source. But OHM tiles support hundreds of sparsely populated fields.
+        language.supportedLanguages.push(newLanguageCode);
+      }
+      let newStyle = language.setLanguage(map.getStyle(), newLanguageCode);
+      // Style diffing seems to miss changes to expression variable values for some reason.
+      map.setStyle(newStyle, { diff: false });
+    }
+
     if (newParams.get('start_date') || newParams.get('end_date')) {
       if (oldParams.get('start_date') !== newParams.get('start_date') ||
           oldParams.get('end_date') !== newParams.get('end_date')) {

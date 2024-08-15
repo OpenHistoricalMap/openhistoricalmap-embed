@@ -4,8 +4,9 @@
   "description": "Embeddable map of OpenHistoricalMap",
   "main": "index.js",
   "scripts": {
-    "build": "shx mkdir -p dist && cp index.html dist && esbuild index.js --bundle --outdir=dist",
-    "start": "shx mkdir -p dist && cp index.html dist && open 'http://127.0.0.1:8000/#map=15/29.9599/-90.0676&date=1900-01-01' && esbuild index.js --bundle --outdir=dist --servedir=dist --watch"
+    "build": "npm run build:copy && esbuild index.js --bundle --outdir=dist",
+    "build:copy": "mkdir -p dist && cp index.html node_modules/@mapbox/mapbox-gl-rtl-text/dist/mapbox-gl-rtl-text.js dist",
+    "start": "npm run build:copy && open 'http://127.0.0.1:8000/#map=15/29.9599/-90.0676&date=1900-01-01' && esbuild index.js --bundle --outdir=dist --servedir=dist --watch"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
     "shx": "^0.3.4"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-language": "^1.0.1",
+    "@mapbox/mapbox-gl-rtl-text": "^0.3.0",
     "@openhistoricalmap/maplibre-gl-dates": "^1.2.0",
     "maplibre-gl": "^4.5.1"
   }
