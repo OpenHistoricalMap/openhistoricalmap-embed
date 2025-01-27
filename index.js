@@ -42,6 +42,7 @@ addEventListener('load', function () {
   });
 
   map.addControl(new maplibregl.NavigationControl(), 'top-left');
+  map.addControl(new maplibregl.GlobeControl(), 'top-left');
   map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 
   let languageCode = params.get('language');
