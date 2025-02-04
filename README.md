@@ -6,11 +6,23 @@ Visit the map directly at [embed.openhistoricalmap.org](https://embed.openhistor
 
 ## URL parameters
 
+### Viewport
+
 The URL has typical z/x/y parameters for map zoom and center.
 
 So a parameter like `#map=10/43.9367/12.5528` is zoom 10 showing San Marino in Italy, which is at `43.9367/12.5528` in `lon,lat` format of decimal degrees. [See the map.](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528)
 
 An embedded map is typically of a different size and aspect ratio from the original and thus must be scaled in order to cover a comparable area. This is accomplished by passing the original map's bounding box in the hash as `&bbox=minlon,minlat,maxlon,maxlat`. Once the embedded map gets its initial framing from the `bbox` the normal hash mechanism takes over. The San Marino example could be bounded by appending `&bbox=12.321338653564453,43.86782687726672,12.58037567138672,44.008373185063874` to the URL. [See this map.](https://embed.openhistoricalmap.org/#map=10/43.9367/12.5528&bbox=12.321338653564453,43.86782687726672,12.58037567138672,44.008373185063874)
+
+### Projection
+
+The `projection` parameter accepts the following values:
+
+* `mercator`, Web Mercator projection, represents the world as a square. It allows you to view both hemispheres at the same time but with extreme area distortion at the upper latitudes. This is the default projection.
+* `vertical-perspective`, Vertical Perspective projection, resembles a globe. It avoids area distortion but only shows one hemisphere at a time.
+* `globe` is a hybrid of `vertical-perspective` at low zoom levels and `mercator` at high zoom levels where the Web Mercator projection’s distortions matter much less.
+
+The 🌐 button at the upper-left corner toggles between `mercator` and `globe` projection.
 
 ### Dates
 

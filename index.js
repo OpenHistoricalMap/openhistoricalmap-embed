@@ -42,6 +42,7 @@ addEventListener('load', function () {
   });
 
   map.addControl(new maplibregl.NavigationControl(), 'top-left');
+  map.addControl(new maplibregl.GlobeControl(), 'top-left');
   map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 
   let languageCode = params.get('language');
@@ -82,6 +83,12 @@ addEventListener('load', function () {
   }
 
   map.once('styledata', function (event) {
+    if (params.get('projection')) {
+      map.setProjection({
+          type: params.get('projection'),
+      });
+    }
+
     if (params.get('start_date') || params.get('end_date')) {
       animate(map, params.get('start_date'), params.get('end_date'));
       return;
@@ -106,6 +113,12 @@ addEventListener('load', function () {
       let newStyle = language.setLanguage(map.getStyle(), newLanguageCode);
       // Style diffing seems to miss changes to expression variable values for some reason.
       map.setStyle(newStyle, { diff: false });
+    }
+
+    if (oldParams.get('projection') !== newParams.get('projection')) {
+      map.setProjection({
+          type: newParams.get('projection') || 'mercator',
+      });
     }
 
     if (newParams.get('start_date') || newParams.get('end_date')) {
