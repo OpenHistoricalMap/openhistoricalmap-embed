@@ -8,7 +8,7 @@ var stylesByLayer = {
   /* Historic (production) */
   O: 'https://www.openhistoricalmap.org/map-styles/main/main.json',
   /* Historic (staging) */
-  O_staging: 'https://openhistoricalmap.github.io/map-styles/main/main.json',
+  O_staging: 'https://openhistoricalmap.github.io/map-styles/historical/historical.json',
   /* Railway (production) */
   R: 'https://www.openhistoricalmap.org/map-styles/rail/rail.json',
   /* Railway (staging) */
