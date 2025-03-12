@@ -6,7 +6,7 @@ import MapboxLanguage from '@mapbox/mapbox-gl-language';
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
   /* Historic (production) */
-  O: 'https://www.openhistoricalmap.org/map-styles/main/main.json',
+  O: 'https://www.openhistoricalmap.org/map-styles/historical/historical.json',
   /* Historic (staging) */
   O_staging: 'https://openhistoricalmap.github.io/map-styles/historical/historical.json',
   /* Railway (production) */
