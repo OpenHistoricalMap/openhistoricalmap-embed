@@ -12,11 +12,11 @@ var stylesByLayer = {
   /* Railway (production) */
   R: 'https://www.openhistoricalmap.org/map-styles/rail/rail.json',
   /* Railway (staging) */
-  R_staging: 'https://openhistoricalmap.github.io/map-styles/rail/rail.json',
+  R_staging: 'https://openhistoricalmap.github.io/map-styles/railway/railway.json',
   /* Japanese Scroll (production) */
   J: 'https://www.openhistoricalmap.org/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
   /* Japanese Scroll (staging) */
-  J_staging: 'https://openhistoricalmap.github.io/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
+  J_staging: 'https://openhistoricalmap.github.io/map-styles/japanese_scroll/japanese_scroll.json',
   /* Woodblock (production) */
   W: 'https://www.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
   /* Woodblock (staging) */
