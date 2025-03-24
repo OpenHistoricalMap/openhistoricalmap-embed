@@ -24,7 +24,7 @@
   "homepage": "https://github.com/OpenHistoricalMap/openhistoricalmap-embed#readme",
   "devDependencies": {
     "esbuild": "^0.24.2",
-    "shx": "^0.3.4"
+    "shx": "^0.4.0"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-language": "^1.0.1",
