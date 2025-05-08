@@ -1,6 +1,6 @@
 {
   "name": "@openhistoricalmap/embed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Embeddable map of OpenHistoricalMap",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "author": "OpenHistoricalMap",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/OpenHistoricalMap/openhistoricalmap-embed/issues"
+    "url": "https://github.com/OpenHistoricalMap/issues/issues"
   },
   "homepage": "https://github.com/OpenHistoricalMap/openhistoricalmap-embed#readme",
   "devDependencies": {
