@@ -6,21 +6,22 @@ import MapboxLanguage from '@mapbox/mapbox-gl-language';
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
   /* Historic (production) */
-  O: 'https://www.openhistoricalmap.org/map-styles/main/main.json',
+  // O: 'https://gist.githubusercontent.com/Rub21/f20179bc1a60584ade3624f6da726837/raw/3e3e0fca6fd8def9cf02ba2c0a2b5abd39d073dd/historical.json',
+  O: 'https://gist.githubusercontent.com/Rub21/03a97c1eeac9588eb314eb4b77bbf061/raw/7e7eb82f03b9661446268d84035daf3e5dbdd02a/historical_local.json',
   /* Historic (staging) */
-  O_staging: 'https://staging.openhistoricalmap.org/map-styles/historical/historical.json',
+  O_staging: 'https://ohmstaging.org/map-styles/historical/historical.json',
   /* Railway (production) */
   R: 'https://www.openhistoricalmap.org/map-styles/rail/rail.json',
   /* Railway (staging) */
-  R_staging: 'https://staging.openhistoricalmap.org/map-styles/railway/railway.json',
+  R_staging: 'https://ohmstaging.org/map-styles/railway/railway.json',
   /* Japanese Scroll (production) */
   J: 'https://www.openhistoricalmap.org/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
   /* Japanese Scroll (staging) */
-  J_staging: 'https://staging.openhistoricalmap.org/map-styles/japanese_scroll/japanese_scroll.json',
+  J_staging: 'https://ohmstaging.org/map-styles/japanese_scroll/japanese_scroll.json',
   /* Woodblock (production) */
   W: 'https://www.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
   /* Woodblock (staging) */
-  W_staging: 'https://staging.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
+  W_staging: 'https://ohmstaging.org/map-styles/woodblock/woodblock.json',
 };
 
 addEventListener('load', function () {
