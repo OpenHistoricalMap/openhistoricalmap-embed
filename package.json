@@ -30,6 +30,6 @@
     "@mapbox/mapbox-gl-language": "^1.0.1",
     "@mapbox/mapbox-gl-rtl-text": "^0.4.0",
     "@openhistoricalmap/maplibre-gl-dates": "^1.3.0",
-    "maplibre-gl": "^5.21.1"
+    "maplibre-gl": "^5.23.0"
   }
 }
