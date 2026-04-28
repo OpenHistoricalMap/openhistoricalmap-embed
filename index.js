@@ -8,19 +8,19 @@ var stylesByLayer = {
   /* Historic (production) */
   O: 'https://www.openhistoricalmap.org/map-styles/main/main.json',
   /* Historic (staging) */
-  O_staging: 'https://staging.openhistoricalmap.org/map-styles/historical/historical.json',
+  O_staging: 'https://www.ohmstaging.org/map-styles/historical/historical.json',
   /* Railway (production) */
   R: 'https://www.openhistoricalmap.org/map-styles/rail/rail.json',
   /* Railway (staging) */
-  R_staging: 'https://staging.openhistoricalmap.org/map-styles/railway/railway.json',
+  R_staging: 'https://www.ohmstaging.org/map-styles/railway/railway.json',
   /* Japanese Scroll (production) */
   J: 'https://www.openhistoricalmap.org/map-styles/japanese_scroll/ohm-japanese-scroll-map.json',
   /* Japanese Scroll (staging) */
-  J_staging: 'https://staging.openhistoricalmap.org/map-styles/japanese_scroll/japanese_scroll.json',
+  J_staging: 'https://www.ohmstaging.org/map-styles/japanese_scroll/japanese_scroll.json',
   /* Woodblock (production) */
   W: 'https://www.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
   /* Woodblock (staging) */
-  W_staging: 'https://staging.openhistoricalmap.org/map-styles/woodblock/woodblock.json',
+  W_staging: 'https://www.ohmstaging.org/map-styles/woodblock/woodblock.json',
 };
 
 addEventListener('load', function () {
