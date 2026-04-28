@@ -84,11 +84,6 @@ addEventListener('load', function () {
     let date = params.get('date') || new Date();
     filterByDate(map, date);
     
-    localizeStyle(map, getLocales(), {
-      ...localizationOptions,
-      sourceLayers: ["place_points_centroids"],
-      glossLocalNames: true,
-    });
     localizeStyle(map, getLocales(), localizationOptions);
   });
 
