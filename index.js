@@ -1,7 +1,7 @@
 import { filterByDate, dateRangeFromISODate } from '@openhistoricalmap/maplibre-gl-dates';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import MapboxLanguage from '@mapbox/mapbox-gl-language';
+import { localizeStyle, getLocales } from '@americana/diplomat';
 
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
@@ -45,23 +45,6 @@ addEventListener('load', function () {
   map.addControl(new maplibregl.GlobeControl(), 'top-left');
   map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 
-  let languageCode = params.get('language');
-  let language = new MapboxLanguage({
-    defaultLanguage: languageCode,
-    supportedLanguages: languageCode ? [languageCode] : undefined,
-    languageSource: 'osm',
-    getLanguageField: (languageCode) => {
-      if (languageCode === 'mul') {
-        return 'name';
-      } else {
-        // Optimistically follow the pattern in the tiler tag mapping without hard-coding the specific table columns.
-        // https://github.com/OpenHistoricalMap/ohm-deploy/blob/main/images/tiler-server/config/languages.sql
-        return 'name_' + languageCode.replace('-', '_').toLowerCase();
-      }
-    },
-  });
-  map.addControl(language);
-
   let
     markerLongitude = parseFloat(params.get('mlon')),
     markerLatitude = parseFloat(params.get('mlat')),
@@ -82,6 +65,10 @@ addEventListener('load', function () {
       .addTo(map);
   }
 
+  let localizationOptions = {
+    localizedNamePropertyFormat: "name_$1",
+  };
+
   map.once('styledata', function (event) {
     if (params.get('projection')) {
       map.setProjection({
@@ -96,6 +83,8 @@ addEventListener('load', function () {
     
     let date = params.get('date') || new Date();
     filterByDate(map, date);
+    
+    localizeStyle(map, getLocales(), localizationOptions);
   });
 
   addEventListener('hashchange', function (event) {
@@ -106,13 +95,7 @@ addEventListener('load', function () {
     let oldLanguageCode = oldParams.get('language');
     let newLanguageCode = newParams.get('language');
     if (oldLanguageCode !== newLanguageCode) {
-      if (!language.supportedLanguages.includes(newLanguageCode)) {
-        // mapbox-gl-language assumes a limited set of language fields that is known in advance, as is the case with the Mapbox Streets source. But OHM tiles support hundreds of sparsely populated fields.
-        language.supportedLanguages.push(newLanguageCode);
-      }
-      let newStyle = language.setLanguage(map.getStyle(), newLanguageCode);
-      // Style diffing seems to miss changes to expression variable values for some reason.
-      map.setStyle(newStyle, { diff: false });
+      localizeStyle(map, getLocales(), localizationOptions);
     }
 
     if (oldParams.get('projection') !== newParams.get('projection')) {
@@ -135,6 +118,10 @@ addEventListener('load', function () {
       filterByDate(map, newDate || new Date());
     }
   });
+});
+
+addEventListener("languagechange", function (event) {
+  localizeStyle(map, getLocales(), localizationOptions);
 });
 
 function upgradeLegacyHash() {
