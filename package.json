@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/OpenHistoricalMap/openhistoricalmap-embed#readme",
   "devDependencies": {
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "shx": "^0.4.0"
   },
   "dependencies": {
