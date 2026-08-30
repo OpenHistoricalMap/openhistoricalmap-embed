@@ -6,11 +6,11 @@ import { localizeStyle, getLocales } from '@americana/diplomat';
 var attribution = '<a href="https://www.openhistoricalmap.org/copyright">OpenHistoricalMap</a>';
 var stylesByLayer = {
   /* Historic (production) */
-  O: 'https://www.openhistoricalmap.org/map-styles/main/main.json',
+  O: 'https://www.openhistoricalmap.org/map-styles/historical/historical.json',
   /* Historic (staging) */
   O_staging: 'https://www.ohmstaging.org/map-styles/historical/historical.json',
   /* Railway (production) */
-  R: 'https://www.openhistoricalmap.org/map-styles/rail/rail.json',
+  R: 'https://www.openhistoricalmap.org/map-styles/railway/railway.json',
   /* Railway (staging) */
   R_staging: 'https://www.ohmstaging.org/map-styles/railway/railway.json',
   /* Japanese Scroll (production) */
